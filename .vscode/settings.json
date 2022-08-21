@@ -7,5 +7,7 @@
     "editor.suggest.showDeprecated": false,
     "files.associations": {
         "vector": "cpp"
-    }
+    },
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true
 }
