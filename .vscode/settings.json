@@ -1,0 +1,11 @@
+{
+    "code-runner.clearPreviousOutput": true,
+    "code-runner.saveFileBeforeRun": true,
+    "code-runner.saveAllFilesBeforeRun": true,
+    "code-runner.runInTerminal": true,
+    "editor.quickSuggestionsDelay": 0,
+    "editor.suggest.showDeprecated": false,
+    "files.associations": {
+        "vector": "cpp"
+    }
+}
