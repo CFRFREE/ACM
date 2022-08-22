@@ -3,12 +3,10 @@
 #define INF 2147483647
 #define INFF 9223372036854775807
 #define LL long long
-#define N 100005
+#define N 500005
 using namespace std;
 int S, T, cnt = 1;
-int to[N], from[N], Next[N], val[N], d[N];
-queue<int> q;
-
+int to[N], from[N], Next[N], val[N], d[N], cur[N];
 inline int read()
 {
 	int X = 0, w = 0;
@@ -36,11 +34,11 @@ inline void add(int x, int y, int z)
 }
 int bfs()
 {
+	queue<int> q;
 	memset(d, 0, sizeof(d));
-	while (q.size())
-		q.pop();
-	q.push(S);
 	d[S] = 1;
+	cur[S] = from[S];
+	q.push(S);
 	while (q.size())
 	{
 		int x = q.front();
@@ -50,8 +48,9 @@ int bfs()
 			int y = to[i];
 			if (val[i] && !d[y])
 			{
-				q.push(y);
 				d[y] = d[x] + 1;
+				cur[y] = from[y];
+				q.push(y);
 				if (y == T)
 					return 1;
 			}

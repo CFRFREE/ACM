@@ -2,7 +2,7 @@
 #define P 1000000007
 #define INF 2147483647
 #define INFF 9223372036854775807
-#define LL long long
+#define int long long
 #define N 500005
 using namespace std;
 int S, T, cnt = 1;
@@ -95,7 +95,7 @@ int dinic()
 }
 void work()
 {
-	int n = read(), m = read();
+	int n = read(), m = read(), s = read(), t = read();
 	vector<int> delta(n + 1);
 	S = 0, T = n + 1;
 	for (int i = 1; i <= m; i++)
@@ -115,15 +115,17 @@ void work()
 		}
 		else if (delta[i] < 0)
 			add(i, T, 0, -delta[i]);
+	add(t, s, 0, INF);
 	int maxflow = dinic();
 	if (maxflow != sum)
 	{
-		puts("NO");
+		puts("No Solution");
 		return;
 	}
-	puts("YES");
-	for (int i = 1; i <= m; i++)
-		printf("%d\n", e[i].min + val[i << 1 | 1]);
+	int res = val[cnt];
+	S = s, T = t;
+	val[cnt] = val[cnt - 1] = 0;
+	printf("%lld\n", res + dinic());
 }
 signed main()
 {

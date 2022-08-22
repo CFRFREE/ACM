@@ -1,13 +1,14 @@
+#pragma GCC optimize(2)
+#pragma GCC optimize(3)
 #include <bits/stdc++.h>
 #define P 1000000007
 #define INF 2147483647
 #define INFF 9223372036854775807
 #define LL long long
-#define N 500005
+#define N 400005
 using namespace std;
 int S, T, cnt = 1;
-int to[N], from[N], Next[N], val[N], d[N];
-vector<int> ans[N];
+int to[N], from[N], Next[N], val[N], d[N], cur[N];
 struct Node
 {
 	int from, to, min, max;
@@ -40,10 +41,11 @@ inline void add(int x, int y, int mini, int maxn)
 }
 int bfs()
 {
-	memset(d, 0, sizeof(d));
 	queue<int> q;
-	q.push(S);
+	memset(d, 0, sizeof(d));
 	d[S] = 1;
+	cur[S] = from[S];
+	q.push(S);
 	while (q.size())
 	{
 		int x = q.front();
@@ -53,8 +55,9 @@ int bfs()
 			int y = to[i];
 			if (val[i] && !d[y])
 			{
-				q.push(y);
 				d[y] = d[x] + 1;
+				cur[y] = from[y];
+				q.push(y);
 				if (y == T)
 					return 1;
 			}
@@ -67,17 +70,18 @@ int dinic(int x, int flow)
 	if (x == T)
 		return flow;
 	int k, rest = flow;
-	for (int i = from[x]; i && rest; i = Next[i])
+	for (int i = cur[x]; i && rest; i = Next[i])
 	{
+		cur[x] = i;
 		int y = to[i];
 		if (val[i] && d[y] == d[x] + 1)
 		{
-			k = dinic(y, min(rest, val[i]));
+			k = dinic(y, min(val[i], rest));
 			if (!k)
 				d[y] = 0;
+			rest -= k;
 			val[i] -= k;
 			val[i ^ 1] += k;
-			rest -= k;
 		}
 	}
 	return flow - rest;
@@ -95,7 +99,7 @@ int dinic()
 }
 void work()
 {
-	int n = read(), m = read();
+	int n = read(), m = read(), s = read(), t = read();
 	vector<int> delta(n + 1);
 	S = 0, T = n + 1;
 	for (int i = 1; i <= m; i++)
@@ -115,15 +119,17 @@ void work()
 		}
 		else if (delta[i] < 0)
 			add(i, T, 0, -delta[i]);
+	add(t, s, 0, INF);
 	int maxflow = dinic();
-	if (maxflow != sum)
+	if (maxflow < sum)
 	{
-		puts("NO");
+		puts("No Solution");
 		return;
 	}
-	puts("YES");
-	for (int i = 1; i <= m; i++)
-		printf("%d\n", e[i].min + val[i << 1 | 1]);
+	int res = val[cnt];
+	S = t, T = s;
+	val[cnt] = val[cnt - 1] = 0;
+	printf("%d\n", res - dinic());
 }
 signed main()
 {
