@@ -5,7 +5,7 @@
 #define LL long long
 #define N 100005
 using namespace std;
-int s, t, cnt = 1;
+int S, T, cnt = 1;
 int to[N], from[N], Next[N], val[N], d[N];
 queue<int> q;
 
@@ -39,8 +39,8 @@ int bfs()
 	memset(d, 0, sizeof(d));
 	while (q.size())
 		q.pop();
-	q.push(s);
-	d[s] = 1;
+	q.push(S);
+	d[S] = 1;
 	while (q.size())
 	{
 		int x = q.front();
@@ -52,7 +52,7 @@ int bfs()
 			{
 				q.push(y);
 				d[y] = d[x] + 1;
-				if (y == t)
+				if (y == T)
 					return 1;
 			}
 		}
@@ -61,7 +61,7 @@ int bfs()
 }
 int dinic(int x, int flow)
 {
-	if (x == t)
+	if (x == T)
 		return flow;
 	int k, rest = flow;
 	for (int i = from[x]; i && rest; i = Next[i])
@@ -85,7 +85,7 @@ LL dinic()
 	while (bfs())
 	{
 		int tep;
-		while (tep = dinic(s, INF))
+		while (tep = dinic(S, INF))
 			res += tep;
 	}
 	return res;
@@ -93,7 +93,7 @@ LL dinic()
 void work()
 {
 	int n = read(), m = read();
-	s = read(), t = read();
+	S = read(), T = read();
 	for (int i = 1; i <= m; i++)
 	{
 		int x = read(), y = read(), z = read();

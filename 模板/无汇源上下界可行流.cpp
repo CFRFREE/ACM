@@ -5,7 +5,7 @@
 #define LL long long
 #define N 100005
 using namespace std;
-int s, t, cnt = 1;
+int S, T, cnt = 1;
 int to[N], from[N], Next[N], val[N], d[N];
 vector<int> ans[N];
 struct Node
@@ -42,8 +42,8 @@ int bfs()
 {
 	memset(d, 0, sizeof(d));
 	queue<int> q;
-	q.push(s);
-	d[s] = 1;
+	q.push(S);
+	d[S] = 1;
 	while (q.size())
 	{
 		int x = q.front();
@@ -55,7 +55,7 @@ int bfs()
 			{
 				q.push(y);
 				d[y] = d[x] + 1;
-				if (y == t)
+				if (y == T)
 					return 1;
 			}
 		}
@@ -64,7 +64,7 @@ int bfs()
 }
 int dinic(int x, int flow)
 {
-	if (x == t)
+	if (x == T)
 		return flow;
 	int k, rest = flow;
 	for (int i = from[x]; i && rest; i = Next[i])
@@ -88,7 +88,7 @@ int dinic()
 	while (bfs())
 	{
 		int tep = 0;
-		while (tep = dinic(s, INF))
+		while (tep = dinic(S, INF))
 			res += tep;
 	}
 	return res;
@@ -97,7 +97,7 @@ void work()
 {
 	int n = read(), m = read();
 	vector<int> delta(n + 1);
-	s = 0, t = n + m + 1;
+	S = 0, T = n + m + 1;
 	for (int i = 1; i <= m; i++)
 	{
 		int a = read(), b = read(), c = read(), d = read();
@@ -111,10 +111,10 @@ void work()
 		if (delta[i] > 0)
 		{
 			sum += delta[i];
-			add(s, i, delta[i]);
+			add(S, i, delta[i]);
 		}
 		else if (delta[i] < 0)
-			add(i, t, -delta[i]);
+			add(i, T, -delta[i]);
 	int maxflow = dinic();
 	if (maxflow != sum)
 	{
