@@ -7,7 +7,11 @@
 using namespace std;
 int s, t, cnt = 1;
 int to[N], from[N], Next[N], val[N], d[N];
-queue<int> q;
+vector<int> ans[N];
+struct Node
+{
+	int from, to, min, max;
+} e[N];
 
 inline int read()
 {
@@ -37,8 +41,7 @@ inline void add(int x, int y, int z)
 int bfs()
 {
 	memset(d, 0, sizeof(d));
-	while (q.size())
-		q.pop();
+	queue<int> q;
 	q.push(s);
 	d[s] = 1;
 	while (q.size())
@@ -79,12 +82,12 @@ int dinic(int x, int flow)
 	}
 	return flow - rest;
 }
-LL dinic()
+int dinic()
 {
-	LL res = 0;
+	int res = 0;
 	while (bfs())
 	{
-		int tep;
+		int tep = 0;
 		while (tep = dinic(s, INF))
 			res += tep;
 	}
@@ -93,17 +96,39 @@ LL dinic()
 void work()
 {
 	int n = read(), m = read();
-	s = read(), t = read();
+	vector<int> delta(n + 1);
+	s = 0, t = n + m + 1;
 	for (int i = 1; i <= m; i++)
 	{
-		int x = read(), y = read(), z = read();
-		add(x, y, z);
+		int a = read(), b = read(), c = read(), d = read();
+		add(a, b, d - c);
+		e[i] = {a, b, c, d};
+		delta[a] -= c;
+		delta[b] += c;
 	}
-	LL maxflow = dinic();
-	printf("%lld\n", maxflow);
-	return;
+	int sum = 0;
+	for (int i = 1; i <= n; i++)
+		if (delta[i] > 0)
+		{
+			sum += delta[i];
+			add(s, i, delta[i]);
+		}
+		else if (delta[i] < 0)
+			add(i, t, -delta[i]);
+	int maxflow = dinic();
+	if (maxflow != sum)
+	{
+		puts("NO");
+		return;
+	}
+	puts("YES");
+	for (int i = 1; i <= m; i++)
+		printf("%d\n", e[i].min + val[i << 1 | 1]);
 }
 signed main()
 {
+#ifndef ONLINE_JUDGE
+	freopen("C:\\Users\\FREE\\Desktop\\1.in", "r", stdin);
+#endif
 	work();
 }
