@@ -2,12 +2,14 @@
     "code-runner.clearPreviousOutput": true,
     "code-runner.saveFileBeforeRun": true,
     "code-runner.saveAllFilesBeforeRun": true,
-    "code-runner.runInTerminal": true,
+    "code-runner.runInTerminal": false,
     "editor.quickSuggestionsDelay": 0,
     "editor.suggest.showDeprecated": false,
     "files.associations": {
-        "vector": "cpp"
+        "vector": "cpp",
+        "queue": "cpp"
     },
     "editor.formatOnPaste": true,
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
+    "code-runner.ignoreSelection": true
 }

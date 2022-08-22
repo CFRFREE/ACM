@@ -3,11 +3,12 @@
 #define INF 2147483647
 #define INFF 9223372036854775807
 #define LL long long
-#define N 1000005
+#define N 100005
 using namespace std;
-int n, m, s, t, cnt = 1, to[N], from[N], Next[N], d[N], val[N];
-int ans;
-queue<int>q;
+int s, t, cnt = 1;
+int to[N], from[N], Next[N], val[N], d[N];
+queue<int> q;
+
 inline int read()
 {
 	int X = 0, w = 0;
@@ -17,22 +18,29 @@ inline int read()
 		w |= ch == '-';
 		ch = getchar();
 	}
-	while (isdigit(ch)) X = (X << 3) + (X << 1) + (ch ^ 48), ch = getchar();
+	while (isdigit(ch))
+		X = (X << 3) + (X << 1) + (ch ^ 48), ch = getchar();
 	return w ? -X : X;
 }
-inline void add(int x, int y, int z)
+inline void addage(int x, int y, int z)
 {
 	to[++cnt] = y;
 	Next[cnt] = from[x];
 	from[x] = cnt;
 	val[cnt] = z;
 }
+inline void add(int x, int y, int z)
+{
+	addage(x, y, z);
+	addage(y, x, 0);
+}
 int bfs()
 {
 	memset(d, 0, sizeof(d));
-	d[s] = 1;
-	while (q.size())q.pop();
+	while (q.size())
+		q.pop();
 	q.push(s);
+	d[s] = 1;
 	while (q.size())
 	{
 		int x = q.front();
@@ -42,9 +50,10 @@ int bfs()
 			int y = to[i];
 			if (val[i] && !d[y])
 			{
-				d[y] = d[x] + 1;
-				if (y == t)return 1;
 				q.push(y);
+				d[y] = d[x] + 1;
+				if (y == t)
+					return 1;
 			}
 		}
 	}
@@ -52,50 +61,44 @@ int bfs()
 }
 int dinic(int x, int flow)
 {
-	if (x == t)return flow;
+	if (x == t)
+		return flow;
 	int k, rest = flow;
-	for (int i = from[x]; i; i = Next[i])
+	for (int i = from[x]; i && rest; i = Next[i])
 	{
 		int y = to[i];
 		if (val[i] && d[y] == d[x] + 1)
 		{
 			k = dinic(y, min(rest, val[i]));
-			if (!k)d[y] = 0;
-			rest -= k;
+			if (!k)
+				d[y] = 0;
 			val[i] -= k;
 			val[i ^ 1] += k;
+			rest -= k;
 		}
 	}
 	return flow - rest;
 }
-int main()
+void work()
 {
-	n = read(), m = read();
-	s = 0, t = n + 1;
-	for (int i = 1; i <= n; i++)
+	int n = read(), m = read();
+	s = read(), t = read();
+	for (int i = 1; i <= m; i++)
 	{
-		int x = read();
-		if (x)
-		{
-			add(s, i, 1);
-			add(i, s, 0);
-		}
-		else
-		{
-			add(i, t, 1);
-			add(t, i, 0);
-		}
+		int x = read(), y = read(), z = read();
+		add(x, y, z);
 	}
-	while (m--)
-	{
-		int x = read(), y = read();
-		add(x, y, 1);
-		add(y, x, 0);
-		add(y, x, 1);
-		add(x, y, 0);
-	}
+	LL maxflow = 0;
 	while (bfs())
-		ans += dinic(0, INF);
-	printf("%d\n", ans);
-	return 0;
+	{
+		int tep;
+		while (tep = dinic(s, INF))
+			maxflow += tep;
+	}
+	printf("%lld\n", maxflow);
+	return;
+}
+signed main()
+{
+	work();
 }
