@@ -98,4 +98,14 @@
 
 40. 卡常可以考虑数组访问的连续性
 
-41. 
+41. 莫比乌斯反演：
+
+    莫比乌斯函数$\mu(n) = \begin{cases}1 & n = 1\\0,&\mbox{n含有平方因子}\\-1^{k},&\mbox{k为n含有的本质不同的因子个数}\end{cases}$
+
+    $\sum_{d|n}\mu(d)=\begin{cases}1,&n=1\\0,&n!=1\end{cases}$
+
+    如果$F(n)=\sum_{d|n}f(d)$，则$f(n)=\sum_{d|n}\mu(d)F(\frac{n}{d})$
+
+    如果$F(n)=\sum_{n|d}f(d)$，则$f(n)=\sum_{n|d}\mu(\frac{d}{n})F(d)$（常用）
+
+    
