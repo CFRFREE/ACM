@@ -131,4 +131,5 @@ signed main()
 	freopen("C:\\Users\\FREE\\Desktop\\1.in", "r", stdin);
 #endif
 	work();
+	return 0;
 }
