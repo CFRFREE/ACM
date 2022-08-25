@@ -2,7 +2,7 @@
 #define P 1000000007
 #define INF 2147483647
 #define INFF 9223372036854775807
-#define LL long long
+#define int long long
 #define N 500005
 using namespace std;
 int S, T, cnt = 1;
@@ -92,14 +92,22 @@ int dinic()
 void work()
 {
 	int n = read(), m = read();
-	S = read(), T = read();
+	S = 0, T = n + m + 1;
+	int ans = 0;
+	for (int i = 1; i <= n; i++)
+	{
+		int x = read();
+		add(i + m, T, x); // 负权点到T
+	}
 	for (int i = 1; i <= m; i++)
 	{
-		int x = read(), y = read(), z = read();
-		add(x, y, z);
+		int a = read(), b = read(), c = read();
+		add(S, i, c);		// S到正权点
+		add(i, m + a, INF); // i需要的依赖
+		add(i, m + b, INF); // i需要的依赖
+		ans += c;			// 计算所有正权点的和
 	}
-	int maxflow = dinic();
-	printf("%d\n", maxflow);
+	printf("%lld\n", ans - dinic()); //所有正权点的和-最小割
 	return;
 }
 signed main()

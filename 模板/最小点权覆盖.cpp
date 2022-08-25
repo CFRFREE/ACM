@@ -7,6 +7,7 @@
 using namespace std;
 int S, T, cnt = 1;
 int to[N], from[N], Next[N], val[N], d[N], cur[N];
+int vis[N];
 inline int read()
 {
 	int X = 0, w = 0;
@@ -89,17 +90,59 @@ int dinic()
 	}
 	return res;
 }
+void dfs(int x)
+{
+	vis[x] = 1;
+	for (int i = from[x]; i; i = Next[i])
+	{
+		if (!val[i]) //在残量网络上dfs
+			continue;
+		int y = to[i];
+		if (!vis[y])
+			dfs(y);
+	}
+}
 void work()
 {
 	int n = read(), m = read();
-	S = read(), T = read();
+	S = 0, T = 2 * n + 1;
+	for (int i = 1; i <= n; i++)
+	{
+		int x = read();
+		add(S, i, x); // S到每个左点，边权为点权
+	}
+	for (int i = 1; i <= n; i++)
+	{
+		int x = read();
+		add(i + n, T, x); //右点到T
+	}
+
 	for (int i = 1; i <= m; i++)
 	{
-		int x = read(), y = read(), z = read();
-		add(x, y, z);
+		int x = read(), y = read();
+		add(y, x + n, INF); //左点到右点
 	}
-	int maxflow = dinic();
-	printf("%d\n", maxflow);
+	printf("%d\n", dinic());
+	dfs(S);
+	int res = 0;
+	for (int i = 2; i <= cnt; i += 2)
+	{
+		int y = to[i], x = to[i ^ 1];
+		if (vis[x] && !vis[y]) //删点的数量
+			res++;
+	}
+	printf("%d\n", res);
+	for (int i = 2; i <= cnt; i += 2)
+	{
+		int y = to[i], x = to[i ^ 1];
+		if (vis[x] && !vis[y])
+		{
+			if (x == S)
+				printf("%d +\n", y);
+			if (y == T)
+				printf("%d -\n", x - n);
+		}
+	}
 	return;
 }
 signed main()
