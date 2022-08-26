@@ -5,10 +5,10 @@
 #define LL long long
 #define N 100005
 using namespace std;
-int n, m, s, t, cnt = 1, to[N], Next[N], from[N], fy[N], val[N], cost[N], flow[N];
+int S, T, cnt = 1, to[N], Next[N], from[N], fy[N], val[N], cost[N], flow[N];
 int pre[N], last[N], vis[N];
 LL ans_flow, ans_cost;
-queue<int>q;
+queue<int> q;
 inline int read()
 {
 	int X = 0, w = 0;
@@ -18,10 +18,11 @@ inline int read()
 		w |= ch == '-';
 		ch = getchar();
 	}
-	while (isdigit(ch)) X = (X << 3) + (X << 1) + (ch ^ 48), ch = getchar();
+	while (isdigit(ch))
+		X = (X << 3) + (X << 1) + (ch ^ 48), ch = getchar();
 	return w ? -X : X;
 }
-inline void add(int x, int y, int z, int Cost)
+inline void addage(int x, int y, int z, int Cost)
 {
 	to[++cnt] = y;
 	Next[cnt] = from[x];
@@ -29,15 +30,20 @@ inline void add(int x, int y, int z, int Cost)
 	val[cnt] = z;
 	fy[cnt] = Cost;
 }
+void add(int x, int y, int z, int Cost)
+{
+	addage(x, y, z, Cost);
+	addage(y, x, 0, -Cost);
+}
 int spfa()
 {
 	memset(vis, 0, sizeof(vis));
 	memset(cost, 0x7f, sizeof(cost));
 	memset(flow, 0x7f, sizeof(flow));
-	pre[t] = -1;
-	q.push(s);
-	vis[s] = 1;
-	cost[s] = 0;
+	pre[T] = -1;
+	q.push(S);
+	vis[S] = 1;
+	cost[S] = 0;
 	while (q.size())
 	{
 		int x = q.front();
@@ -60,29 +66,36 @@ int spfa()
 			}
 		}
 	}
-	return pre[t] != -1;
+	return pre[T] != -1;
 }
-int main()
+void work()
 {
-	n = read(), m = read(), s = read(), t = read();
-	while (m--)
+	int n = read(), m = read();
+	S = read(), T = read();
+	for (int i = 1; i <= m; i++)
 	{
 		int x = read(), y = read(), z = read(), Cost = read();
 		add(x, y, z, Cost);
-		add(y, x, 0, -Cost);
 	}
 	while (spfa())
 	{
-		int x = t;
-		ans_flow += flow[t];
-		ans_cost += flow[t] * cost[t];
-		while (x != s)
+		int x = T;
+		ans_flow += flow[T];
+		ans_cost += flow[T] * cost[T];
+		while (x != S)
 		{
-			val[last[x]] -= flow[t];
-			val[last[x] ^ 1] += flow[t];
+			val[last[x]] -= flow[T];
+			val[last[x] ^ 1] += flow[T];
 			x = pre[x];
 		}
 	}
 	printf("%lld %lld\n", ans_flow, ans_cost);
+}
+signed main()
+{
+#ifndef ONLINE_JUDGE
+	freopen("C:\\Users\\FREE\\Desktop\\1.in", "r", stdin);
+#endif
+	work();
 	return 0;
 }
