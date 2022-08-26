@@ -2,8 +2,11 @@
 #define P 1000000007
 #define INF 2147483647
 #define INFF 9223372036854775807
+#define pii pair<int, int>
 #define LL long long
-#define N 500005
+#define endl '\n'
+#define N 100005
+#define IOS ios::sync_with_stdio(false), cin.tie(0)
 using namespace std;
 int to[N], Next[N], from[N], val[N], fy[N];
 int cnt = 1, ans_cost, ans_flow;
@@ -97,9 +100,9 @@ int dfs(int x, int flow)
 	}
 	return used;
 }
-
 int costflow()
 {
+	ans_cost = 0;
 	int flow = 0;
 	while (spfa())
 	{
