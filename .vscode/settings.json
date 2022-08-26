@@ -16,5 +16,6 @@
     "editor.inlineSuggest.enabled": false,
     "debug.inlineValues": "off",
     "editor.suggest.showInlineDetails": false,
-    "diffEditor.renderSideBySide": false
+    "diffEditor.renderSideBySide": false,
+    "editor.inlayHints.enabled": "off"
 }
