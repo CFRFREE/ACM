@@ -18,5 +18,11 @@
     "editor.suggest.showInlineDetails": false,
     "diffEditor.renderSideBySide": false,
     "editor.inlayHints.enabled": "off",
-    "clangd.checkUpdates": true
+    "clangd.checkUpdates": true,
+    "merge-conflict.codeLens.enabled": false,
+    "merge-conflict.decorators.enabled": false,
+    "diffEditor.ignoreTrimWhitespace": false,
+    "diffEditor.renderIndicators": false,
+    "diffEditor.renderMarginRevertIcon": false,
+    "clangd.path": "c:\\Users\\FREE\\AppData\\Roaming\\Code\\User\\globalStorage\\llvm-vs-code-extensions.vscode-clangd\\install\\14.0.3\\clangd_14.0.3\\bin\\clangd.exe"
 }
