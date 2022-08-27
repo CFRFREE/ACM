@@ -24,5 +24,7 @@
     "diffEditor.ignoreTrimWhitespace": false,
     "diffEditor.renderIndicators": false,
     "diffEditor.renderMarginRevertIcon": false,
-    "clangd.path": "c:\\Users\\FREE\\AppData\\Roaming\\Code\\User\\globalStorage\\llvm-vs-code-extensions.vscode-clangd\\install\\14.0.3\\clangd_14.0.3\\bin\\clangd.exe"
+    "clangd.path": "c:\\Users\\FREE\\AppData\\Roaming\\Code\\User\\globalStorage\\llvm-vs-code-extensions.vscode-clangd\\install\\14.0.3\\clangd_14.0.3\\bin\\clangd.exe",
+    "editor.formatOnType": true,
+    "editor.autoIndent": "advanced",
 }
