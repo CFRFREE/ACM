@@ -24,43 +24,33 @@ inline int read()
 }
 void work()
 {
+	vector<int> v(3);
 	int n = read();
-	vector<int> up, mid, low;
+	for (auto &x : v)
+		x = read();
+	int sum = 0ll;
+	map<int, int> M;
+	M[0ll] = 1ll;
 	for (int i = 1; i <= n; i++)
-		up.push_back(read());
-	for (int i = 1; i <= n; i++)
-		mid.push_back(read());
-	for (int i = 1; i <= n; i++)
-		low.push_back(read());
-	sort(all(up));
-	sort(all(mid));
-	sort(all(low));
-	int ans = 0;
-	for (auto x : mid)
 	{
-		int L = 0, R = n - 1, pos = 0;
-		while (L <= R)
+		int x = read();
+		sum += x;
+		int tep = v.front();
+		if (M.find(sum - tep) != M.end())
 		{
-			int tep = (L + R) >> 1;
-			if (up[tep] >= x)
-				R = tep - 1;
-			else
-				L = tep + 1, pos = max(pos, tep);
+			M.clear();
+			M[0] = 1ll;
+			sum = 0ll;
+			v.erase(v.begin());
 		}
-		int num1 = pos;
-		L = 0, R = n - 1, pos = R;
-		while (L <= R)
+		M[sum] = 1ll;
+		if (!v.size())
 		{
-			int tep = (L + R) >> 1;
-			if (low[tep] > x)
-				R = tep - 1, pos = min(pos, tep);
-			else
-				L = tep + 1;
+			puts("Yes");
+			return;
 		}
-		int num2 = pos;
-		ans += (num1 + 1) * (n - num2);
 	}
-	printf("%lld\n", ans);
+	puts("No");
 }
 signed main()
 {

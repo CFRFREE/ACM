@@ -11,7 +11,7 @@ using namespace std;
 int to[N], Next[N], from[N], val[N], fy[N];
 int cnt = 1, ans_cost, ans_flow;
 int vis[N], dis[N];
-int S, T, ans;
+int S, T;
 inline int read()
 {
 	int X = 0, w = 0;
@@ -100,20 +100,19 @@ int dfs(int x, int flow)
 	}
 	return used;
 }
-int costflow()
+void costflow()
 {
 	ans_cost = 0;
-	int flow = 0;
+	ans_flow = 0;
 	while (spfa())
 	{
 		vis[T] = 1;
 		while (vis[T])
 		{
 			memset(vis, 0, sizeof(vis));
-			flow += dfs(S, INF);
+			ans_flow += dfs(S, INF);
 		}
 	}
-	return flow;
 }
 void work()
 {
@@ -124,8 +123,17 @@ void work()
 		int x = read(), y = read(), z = read(), c = read();
 		add(x, y, z, c);
 	}
-	ans_flow = costflow();
+	costflow();
 	printf("%d %d\n", ans_flow, ans_cost);
+	// for (int i = 2; i <= cnt; i += 2)
+	// {
+	// 	val[i] += val[i ^ 1];
+	// 	val[i ^ 1] = 0;
+	// 	fy[i] = -fy[i];
+	// 	fy[i ^ 1] = -fy[i ^ 1];
+	// }
+	// costflow();
+	// printf("%d\n", -ans_cost);
 }
 signed main()
 {
