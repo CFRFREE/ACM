@@ -12,5 +12,10 @@
     "editor.formatOnPaste": true,
     "editor.formatOnSave": true,
     "code-runner.ignoreSelection": true,
-    "files.autoSave": "onFocusChange"
+    "files.autoSave": "onFocusChange",
+    "editor.inlineSuggest.enabled": false,
+    "debug.inlineValues": "off",
+    "editor.suggest.showInlineDetails": false,
+    "diffEditor.renderSideBySide": false,
+    "editor.inlayHints.enabled": "off"
 }
