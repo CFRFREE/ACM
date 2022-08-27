@@ -17,5 +17,6 @@
     "debug.inlineValues": "off",
     "editor.suggest.showInlineDetails": false,
     "diffEditor.renderSideBySide": false,
-    "editor.inlayHints.enabled": "off"
+    "editor.inlayHints.enabled": "off",
+    "clangd.checkUpdates": true
 }

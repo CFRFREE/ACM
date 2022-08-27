@@ -1,6 +1,6 @@
 ---
 Language:        Cpp
-# BasedOnStyle:  LLVM
+# BasedOnStyle: Chromium
 AccessModifierOffset: -4
 AlignAfterOpenBracket: AlwaysBreak
 AlignConsecutiveMacros: false
