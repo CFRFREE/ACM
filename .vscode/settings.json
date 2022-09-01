@@ -27,4 +27,5 @@
     "clangd.path": "c:\\Users\\FREE\\AppData\\Roaming\\Code\\User\\globalStorage\\llvm-vs-code-extensions.vscode-clangd\\install\\14.0.3\\clangd_14.0.3\\bin\\clangd.exe",
     "editor.formatOnType": true,
     "editor.autoIndent": "advanced",
+    "code-runner.fileDirectoryAsCwd": false,
 }

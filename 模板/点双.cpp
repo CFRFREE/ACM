@@ -7,11 +7,13 @@
 #define pii pair<int, int>
 #define LL long long
 #define endl '\n'
-#define N 200005
+#define N 500005
 #define IOS ios::sync_with_stdio(false), cin.tie(0)
 using namespace std;
 int dfn[N], low[N], cnt, gd[N];
-vector<int> a[N];
+int bcc;
+vector<int> a[N], ans[N];
+stack<int> S;
 inline int read()
 {
 	int X = 0, w = 0;
@@ -28,22 +30,30 @@ inline int read()
 void tarjan(int x, int fa)
 {
 	dfn[x] = low[x] = ++cnt;
+	S.push(x);
 	int son = 0;
 	for (auto y : a[x])
 	{
 		if (!dfn[y])
 		{
-			tarjan(y, fa);
+			son++;
+			tarjan(y, x);
 			low[x] = min(low[x], low[y]);
-			if (low[y] >= dfn[x] && x != fa)
-				gd[x] = 1;
-			if (x == fa)
-				son++;
+			if (low[y] >= dfn[x])
+			{
+				ans[++bcc].push_back(x);
+				while (ans[bcc].back() != y)
+				{
+					ans[bcc].push_back(S.top());
+					S.pop();
+				}
+			}
 		}
-		low[x] = min(low[x], dfn[y]);
+		else if (y != fa)
+			low[x] = min(low[x], dfn[y]);
 	}
-	if (son >= 2 && x == fa)
-		gd[x] = 1;
+	if (fa == 0 && son == 0)
+		ans[++bcc].push_back(x);
 }
 void work()
 {
@@ -56,15 +66,15 @@ void work()
 	}
 	for (int i = 1; i <= n; i++)
 		if (!dfn[i])
-			tarjan(i, i);
-	int ans = 0;
-	for (int i = 1; i <= n; i++)
-		if (gd[i])
-			ans++;
-	printf("%d\n", ans);
-	for (int i = 1; i <= n; i++)
-		if (gd[i])
-			printf("%d ", i);
+			tarjan(i, 0);
+	printf("%d\n", bcc);
+	for (int i = 1; i <= bcc; i++)
+	{
+		printf("%d ", ans[i].size());
+		for (auto x : ans[i])
+			printf("%d ", x);
+		puts("");
+	}
 }
 signed main()
 {
