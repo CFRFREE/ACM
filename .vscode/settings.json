@@ -28,4 +28,5 @@
     "editor.formatOnType": true,
     "editor.autoIndent": "advanced",
     "code-runner.fileDirectoryAsCwd": false,
+    "notebook.diff.enablePreview": false,
 }
