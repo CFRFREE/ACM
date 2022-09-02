@@ -2,5 +2,5 @@
 1.in
 test
 test.cpp
-.clang-format
+conflicted
 
