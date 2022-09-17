@@ -24,46 +24,39 @@ inline int read()
 }
 void work()
 {
-	int n = read();
-	vector<int> up, mid, low;
-	for (int i = 1; i <= n; i++)
-		up.push_back(read());
-	for (int i = 1; i <= n; i++)
-		mid.push_back(read());
-	for (int i = 1; i <= n; i++)
-		low.push_back(read());
-	sort(all(up));
-	sort(all(mid));
-	sort(all(low));
-	int ans = 0;
-	for (auto x : mid)
+	int n = read(), k = read(), a = read(), b = read();
+	if (a == b)
 	{
-		int L = 0, R = n - 1, pos = 0;
-		while (L <= R)
-		{
-			int tep = (L + R) >> 1;
-			if (up[tep] >= x)
-				R = tep - 1;
-			else
-				L = tep + 1, pos = max(pos, tep);
-		}
-		int num1 = pos;
-		L = 0, R = n - 1, pos = R;
-		while (L <= R)
-		{
-			int tep = (L + R) >> 1;
-			if (low[tep] > x)
-				R = tep - 1, pos = min(pos, tep);
-			else
-				L = tep + 1;
-		}
-		int num2 = pos;
-		ans += (num1 + 1) * (n - num2);
+		puts("YES");
+		return;
 	}
-	printf("%lld\n", ans);
+	if (n <= k)
+	{
+		puts("NO");
+		return;
+	}
+	if (a > b)
+		swap(a, b);
+	if (b - a > k)
+	{
+		puts("YES");
+		return;
+	}
+	if (((n - a > k) || (a - 1 > k)) && ((b - 1 > k) || (n - b > k)))
+	{
+		puts("YES");
+	}
+	else
+		puts("NO");
 }
 signed main()
 {
-	work();
+#ifndef ONLINE_JUDGE
+	freopen("1.in", "r", stdin);
+#endif
+	int T = 1;
+	T = read();
+	while (T--)
+		work();
 	return 0;
 }
