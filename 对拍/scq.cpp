@@ -3,11 +3,14 @@ using namespace std;
 int main()
 {
 	srand(time(NULL));
-	puts("1");
 	int n = rand() % 10 + 1;
-	int k = rand() % 10 + 1;
-	int a = rand() % n + 1;
-	int b = rand() % n + 1;
-	printf("%d %d %d %d\n", n, k, a, b);
+	int T = rand() % 10 + 1;
+	printf("%d %d\n", n, T);
+	for (int i = 1; i <= 4; i++)
+		printf("%d ", rand() % 10 + 1);
+	puts("");
+	for (int i = 1; i <= n; i++)
+		printf("%d ", rand() % 10 + 1);
+	puts("");
 	return 0;
 }
